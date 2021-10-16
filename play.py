@@ -2,6 +2,12 @@ import cv2 as cv
 import numpy as np
 from keras.preprocessing import image
 from  keras.models import model_from_json
+
+with open('model.json', 'r') as f:
+    loaded_model_json = f.read()
+loaded_model =model_from_json(loaded_model_json)
+loaded_model.load_weights("model.h5")
+
 def calculate_winner(move1, move2):
     if move1 == move2:
         return "Tie"
@@ -23,10 +29,6 @@ def calculate_winner(move1, move2):
             return "User"
         if move2 == "rock":
             return "Computer"
-with open('model.json', 'r') as f:
-    loaded_model_json = f.read()
-loaded_model =model_from_json(loaded_model_json)
-loaded_model.load_weights("model.h5")
 
 camera=cv.VideoCapture(0)
 start=False
